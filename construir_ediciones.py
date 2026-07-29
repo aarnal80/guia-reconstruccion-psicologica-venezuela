@@ -87,7 +87,8 @@ def parse_markdown(text: str):
     blocks = []
     i = 0
     while i < len(lines):
-        raw = lines[i].rstrip()
+        source_line = lines[i]
+        raw = source_line.rstrip()
         if not raw.strip():
             i += 1
             continue
@@ -121,10 +122,15 @@ def parse_markdown(text: str):
                 i += 1
             blocks.append(("ol", items, None))
             continue
+        if source_line.endswith("  "):
+            blocks.append(("hardline", raw.strip(), None))
+            i += 1
+            continue
         parts = [raw.strip()]
         i += 1
         while i < len(lines):
-            nxt = lines[i].rstrip()
+            next_source_line = lines[i]
+            nxt = next_source_line.rstrip()
             if (
                 not nxt.strip()
                 or nxt.strip() == "<!-- PAGEBREAK -->"
@@ -136,6 +142,8 @@ def parse_markdown(text: str):
                 break
             parts.append(nxt.strip())
             i += 1
+            if next_source_line.endswith("  "):
+                break
         blocks.append(("paragraph", " ".join(parts), None))
     return blocks
 
@@ -219,6 +227,43 @@ def set_repeat_table_header(row):
     tbl_header = OxmlElement("w:tblHeader")
     tbl_header.set(qn("w:val"), "true")
     tr_pr.append(tbl_header)
+
+
+def new_numbering_instance(doc: Document, abstract_num_id: int) -> int:
+    numbering = doc.part.numbering_part.element
+    existing = [
+        int(node.get(qn("w:numId")))
+        for node in numbering.findall(qn("w:num"))
+        if node.get(qn("w:numId"))
+    ]
+    num_id = max(existing, default=0) + 1
+    num = OxmlElement("w:num")
+    num.set(qn("w:numId"), str(num_id))
+    abstract = OxmlElement("w:abstractNumId")
+    abstract.set(qn("w:val"), str(abstract_num_id))
+    num.append(abstract)
+    override = OxmlElement("w:lvlOverride")
+    override.set(qn("w:ilvl"), "0")
+    start = OxmlElement("w:startOverride")
+    start.set(qn("w:val"), "1")
+    override.append(start)
+    num.append(override)
+    numbering.append(num)
+    return num_id
+
+
+def apply_numbering(paragraph, num_id: int):
+    p_pr = paragraph._p.get_or_add_pPr()
+    num_pr = p_pr.find(qn("w:numPr"))
+    if num_pr is None:
+        num_pr = OxmlElement("w:numPr")
+        p_pr.append(num_pr)
+    ilvl = OxmlElement("w:ilvl")
+    ilvl.set(qn("w:val"), "0")
+    num = OxmlElement("w:numId")
+    num.set(qn("w:val"), str(num_id))
+    num_pr.append(ilvl)
+    num_pr.append(num)
 
 
 def set_table_geometry(table, widths_dxa):
@@ -369,6 +414,20 @@ def configure_docx_styles(doc: Document):
     quote.paragraph_format.left_indent = Inches(0.3)
     quote.paragraph_format.right_indent = Inches(0.2)
     quote.paragraph_format.space_before = Pt(7)
+
+    if "Worksheet" not in styles:
+        styles.add_style("Worksheet", WD_STYLE_TYPE.PARAGRAPH)
+    worksheet = styles["Worksheet"]
+    worksheet.font.name = "Georgia"
+    worksheet._element.rPr.rFonts.set(qn("w:ascii"), "Georgia")
+    worksheet._element.rPr.rFonts.set(qn("w:hAnsi"), "Georgia")
+    worksheet.font.size = Pt(11.4)
+    worksheet.font.color.rgb = RGBColor.from_string(INK)
+    worksheet.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    worksheet.paragraph_format.space_before = Pt(0)
+    worksheet.paragraph_format.space_after = Pt(8.5)
+    worksheet.paragraph_format.line_spacing = 1.28
+    worksheet.paragraph_format.widow_control = True
     quote.paragraph_format.space_after = Pt(9)
     quote.paragraph_format.line_spacing = 1.25
 
@@ -428,15 +487,33 @@ def build_docx(blocks):
             if level == 1:
                 in_references = content == "Referencias"
                 guide_opener = bool(re.match(r"^Guía \d+", content))
+                if guide_opener:
+                    spacer = doc.add_paragraph()
+                    spacer.paragraph_format.space_before = Pt(0)
+                    spacer.paragraph_format.space_after = Pt(0)
+                    spacer.paragraph_format.line_spacing_rule = WD_LINE_SPACING.EXACTLY
+                    spacer.paragraph_format.line_spacing = Pt(216)
+                    spacer_run = spacer.add_run("\u00a0")
+                    spacer_run.font.size = Pt(1)
                 p = doc.add_paragraph(style="Heading 1")
-                p.paragraph_format.page_break_before = not first_h1
+                p.paragraph_format.page_break_before = not first_h1 and not guide_opener
+                if guide_opener:
+                    p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                    p.paragraph_format.space_before = Pt(0)
+                    p.paragraph_format.space_after = Pt(18)
                 first_h1 = False
             elif level == 2:
                 p = doc.add_paragraph(style="Heading 2")
             else:
                 p = doc.add_paragraph(style="Heading 3")
             add_docx_runs(p, content)
+            if level == 1 and guide_opener:
+                for run in p.runs:
+                    run.font.size = Pt(23)
             if level == 2 and guide_opener:
+                p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+                for run in p.runs:
+                    run.font.size = Pt(16)
                 doc.add_page_break()
                 guide_opener = False
             continue
@@ -446,14 +523,23 @@ def build_docx(blocks):
             continue
         if kind in ("ul", "ol"):
             style = "List Bullet" if kind == "ul" else "List Number"
+            num_id = new_numbering_instance(doc, 7) if kind == "ol" else None
             for item in content:
                 p = doc.add_paragraph(style=style)
+                if num_id is not None:
+                    apply_numbering(p, num_id)
                 add_docx_runs(p, item)
             continue
         if content == "[[TOC_STATIC]]":
             add_docx_toc(doc)
             continue
-        style = "Reference" if in_references else "Normal"
+        style = (
+            "Reference"
+            if in_references
+            else "Worksheet"
+            if kind == "hardline" or re.search(r"_{3,}", content)
+            else "Normal"
+        )
         p = doc.add_paragraph(style=style)
         add_docx_runs(p, content)
 
@@ -494,12 +580,17 @@ class BookDocTemplate(BaseDocTemplate):
             canvas.restoreState()
 
     def afterFlowable(self, flowable):
-        if isinstance(flowable, Paragraph) and flowable.style.name in ("H1", "H2"):
+        if isinstance(flowable, Paragraph) and flowable.style.name in (
+            "H1",
+            "H2",
+            "GuideH1",
+            "GuideH2",
+        ):
             self._bookmark_counter += 1
             key = f"h{self._bookmark_counter}"
             text = flowable.getPlainText()
             self.canv.bookmarkPage(key)
-            level = 0 if flowable.style.name == "H1" else 1
+            level = 0 if flowable.style.name in ("H1", "GuideH1") else 1
             self.canv.addOutlineEntry(text, key, level=level, closed=False)
 
 
@@ -563,6 +654,42 @@ def pdf_styles():
             spaceBefore=9,
             spaceAfter=5,
             keepWithNext=True,
+        ),
+        "GuideH1": ParagraphStyle(
+            "GuideH1",
+            fontName="Georgia-Bold",
+            fontSize=23,
+            leading=28,
+            textColor=HexColor(f"#{NAVY}"),
+            alignment=TA_CENTER,
+            spaceBefore=0,
+            spaceAfter=18,
+            keepWithNext=True,
+        ),
+        "GuideH2": ParagraphStyle(
+            "GuideH2",
+            fontName="Georgia-Bold",
+            fontSize=16,
+            leading=22,
+            textColor=HexColor(f"#{TEAL}"),
+            alignment=TA_CENTER,
+            spaceBefore=0,
+            spaceAfter=0,
+            keepWithNext=True,
+        ),
+        "Worksheet": ParagraphStyle(
+            "Worksheet",
+            fontName="Georgia",
+            fontSize=11.4,
+            leading=16.4,
+            textColor=HexColor(f"#{INK}"),
+            alignment=TA_LEFT,
+            spaceAfter=8.5,
+            allowWidows=0,
+            allowOrphans=0,
+            splitLongWords=True,
+            hyphenationLang="es",
+            embeddedHyphenation=1,
         ),
         "Quote": ParagraphStyle(
             "Quote",
@@ -675,14 +802,23 @@ def build_pdf(blocks):
             if level == 1:
                 in_references = content == "Referencias"
                 guide_opener = bool(re.match(r"^Guía \d+", content))
-                story.append(Paragraph(reportlab_inline(content), styles["H1"]))
-                story.append(Spacer(1, 4))
-            elif level == 2:
-                story.append(Paragraph(reportlab_inline(content), styles["H2"]))
                 if guide_opener:
-                    story.append(Spacer(1, 2.2 * inch))
+                    story.append(Spacer(1, 3.0 * inch))
+                    story.append(
+                        Paragraph(reportlab_inline(content), styles["GuideH1"])
+                    )
+                else:
+                    story.append(Paragraph(reportlab_inline(content), styles["H1"]))
+                    story.append(Spacer(1, 4))
+            elif level == 2:
+                if guide_opener:
+                    story.append(
+                        Paragraph(reportlab_inline(content), styles["GuideH2"])
+                    )
                     story.append(PageBreak())
                     guide_opener = False
+                else:
+                    story.append(Paragraph(reportlab_inline(content), styles["H2"]))
             else:
                 story.append(Paragraph(reportlab_inline(content), styles["H3"]))
             continue
@@ -714,7 +850,13 @@ def build_pdf(blocks):
         if content == "[[TOC_STATIC]]":
             story.append(pdf_toc_table())
             continue
-        style = styles["Reference"] if in_references else styles["Body"]
+        style = (
+            styles["Reference"]
+            if in_references
+            else styles["Worksheet"]
+            if kind == "hardline" or re.search(r"_{3,}", content)
+            else styles["Body"]
+        )
         story.append(Paragraph(reportlab_inline(content), style))
     doc.build(story)
 
