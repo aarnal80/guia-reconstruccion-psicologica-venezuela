@@ -1,0 +1,24 @@
+# Contexto de trabajo privado: no publicar
+Contexto_guia_duelo_Indira.docx
+contexto_mensajes_indira.json
+crear_contexto.py
+
+# Comprobaciones y archivos temporales
+qa_render/
+render_guia/
+__pycache__/
+*.pyc
+
+# Aplicación web
+web/node_modules/
+web/.next/
+web/dist/
+web/out/
+web/.wrangler/
+web/*.log
+web/.devserver.pid
+web/next-env.d.ts
+
+# Sistema
+.DS_Store
+Thumbs.db
