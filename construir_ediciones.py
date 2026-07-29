@@ -49,7 +49,7 @@ HTML_PATH = ROOT / f"{STEM}_web.html"
 EPUB_PATH = ROOT / f"{STEM}.epub"
 FRONT_COVER_PDF = ROOT / "Portada_provisional_frontal_6x9.pdf"
 WRAP_COVER_PDF = ROOT / "Portada_provisional_KDP_90pag_crema.pdf"
-COVER_ART = ROOT / "arte_portada_venezuela_luto.png"
+COVER_ART = ROOT / "arte_portada_venezuela_luto_luminosa.png"
 
 TITLE = "Guía de reconstrucción psicológica"
 SUBTITLE = "Cuando todo se derrumba por dentro y por fuera"
@@ -888,7 +888,6 @@ def draw_front_panel(canvas, x, y, width, height):
     navy = HexColor(f"#{NAVY}")
     teal = HexColor("#56A3A3")
     gold = HexColor(f"#{GOLD}")
-    pale = HexColor("#F4F0E8")
     if COVER_ART.exists():
         canvas.drawImage(
             ImageReader(str(COVER_ART)),
@@ -913,7 +912,7 @@ def draw_front_panel(canvas, x, y, width, height):
 
     title_x = x + margin
     title_y = y + height - 1.70 * inch
-    canvas.setFillColor(pale)
+    canvas.setFillColor(navy)
     canvas.setFont("Georgia-Bold", 27)
     canvas.drawString(title_x, title_y, "GUÍA DE")
     canvas.setFont("Georgia-Bold", 26)
@@ -929,13 +928,13 @@ def draw_front_panel(canvas, x, y, width, height):
         fontName="Georgia-Italic",
         fontSize=13.2,
         leading=17,
-        textColor=pale,
+        textColor=navy,
     )
     subtitle = Paragraph("Cuando todo se derrumba<br/>por dentro y por fuera", subtitle_style)
     subtitle.wrapOn(canvas, 3.55 * inch, 0.8 * inch)
     subtitle.drawOn(canvas, title_x, title_y - 2.05 * inch)
 
-    canvas.setFillColor(pale)
+    canvas.setFillColor(navy)
     canvas.setFont("Georgia-Bold", 10.2)
     canvas.drawString(title_x, y + 0.94 * inch, "INDIRA LUCÍA PARRA")
     canvas.setFont("Georgia", 9.6)
@@ -969,7 +968,7 @@ def build_covers():
     cover = pdfcanvas.Canvas(str(WRAP_COVER_PDF), pagesize=(wrap_w, wrap_h), pageCompression=1)
     cover.setTitle(f"Cubierta provisional KDP — {TITLE}")
     cover.setAuthor(AUTHORS)
-    cover.setFillColor(HexColor(f"#{NAVY}"))
+    cover.setFillColor(HexColor("#D8EAF0"))
     cover.rect(0, 0, wrap_w, wrap_h, stroke=0, fill=1)
 
     back_x = bleed
@@ -978,12 +977,12 @@ def build_covers():
     front_x = spine_x + spine_w
     draw_front_panel(cover, front_x, panel_y, trim_w, trim_h)
 
-    cover.setFillColor(HexColor("#102A3A"))
+    cover.setFillColor(HexColor("#EAF3F4"))
     cover.rect(back_x, panel_y, trim_w, trim_h, stroke=0, fill=1)
     cover.setFillColor(HexColor(f"#{GOLD}"))
     cover.rect(back_x + 0.58 * inch, panel_y + trim_h - 0.72 * inch, 0.72 * inch, 0.045 * inch, stroke=0, fill=1)
 
-    cover.setFillColor(HexColor("#F4F0E8"))
+    cover.setFillColor(HexColor(f"#{NAVY}"))
     cover.setFont("Georgia-Bold", 16)
     cover.drawString(back_x + 0.58 * inch, panel_y + trim_h - 1.24 * inch, "Después de la catástrofe")
 
@@ -992,7 +991,7 @@ def build_covers():
         fontName="Georgia",
         fontSize=10.4,
         leading=15,
-        textColor=HexColor("#F4F0E8"),
+        textColor=HexColor(f"#{INK}"),
         spaceAfter=8,
     )
     blurb = Paragraph(
@@ -1010,7 +1009,7 @@ def build_covers():
         fontName="Georgia",
         fontSize=9.4,
         leading=13.4,
-        textColor=HexColor("#DCEAE8"),
+        textColor=HexColor(f"#{NAVY}"),
         leftIndent=11,
         firstLineIndent=-11,
         bulletIndent=0,
@@ -1034,7 +1033,7 @@ def build_covers():
         fontName="Georgia-Italic",
         fontSize=8.4,
         leading=11.5,
-        textColor=HexColor("#A9C9C7"),
+        textColor=HexColor("#466B77"),
     )
     author_text = Paragraph(
         "<b>Indira Lucía Parra</b>, médica psiquiatra, y <b>Antonio José Arnal "
@@ -1057,7 +1056,7 @@ def build_covers():
     cover.setFont("Georgia", 6.5)
     cover.drawString(back_x + 0.58 * inch, panel_y + 0.48 * inch, "PORTADA PROVISIONAL")
 
-    cover.setFillColor(HexColor("#0C2331"))
+    cover.setFillColor(HexColor("#4E8E9D"))
     cover.rect(spine_x, panel_y, spine_w, trim_h, stroke=0, fill=1)
     cover.saveState()
     cover.translate(spine_x + spine_w / 2, panel_y + 0.55 * inch)

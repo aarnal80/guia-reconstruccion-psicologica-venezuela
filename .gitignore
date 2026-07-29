@@ -5,6 +5,7 @@ crear_contexto.py
 
 # Comprobaciones y archivos temporales
 qa_render/
+qa_light/
 render_guia/
 __pycache__/
 *.pyc

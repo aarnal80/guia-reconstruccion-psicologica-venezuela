@@ -75,7 +75,8 @@ No clasificar como libro infantil ni como libro de poco contenido.
 - Cubierta provisional completa: `Portada_provisional_KDP_90pag_crema.pdf`
 - Portada frontal provisional: `Portada_provisional_frontal_6x9.pdf`
 - Portada frontal en JPG: `Portada_provisional_frontal_6x9.jpg`
-- Arte original de cubierta: `arte_portada_venezuela_luto.png`
+- Arte final luminoso de cubierta: `arte_portada_venezuela_luto_luminosa.png`
+- Primera versión nocturna conservada: `arte_portada_venezuela_luto.png`
 
 La cubierta provisional completa está calculada para papel crema y 90 páginas: lomo de 5,715 mm (0,225 pulgadas), formato final de 12,475 × 9,25 pulgadas con sangrado. El arte representa a Venezuela, el luto y la reconstrucción mediante papel rasgado, un lazo negro, una costura dorada y flores amarillas. Debe regenerarse con la plantilla oficial de KDP si cambia el papel, el recuento de páginas o la edición interior.
 
