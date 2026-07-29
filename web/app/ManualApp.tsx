@@ -10,16 +10,19 @@ import {
   ChevronRight,
   CircleHelp,
   Download,
+  ExternalLink,
+  FileText,
   HeartHandshake,
   Home,
   List,
+  MapPinned,
   Menu,
   Moon,
+  Phone,
   Search,
   Settings2,
   Share2,
   ShieldAlert,
-  Sparkles,
   Sun,
   Type,
   WifiOff,
@@ -46,6 +49,139 @@ type QuickNeed = {
   section?: string;
   tone: string;
 };
+
+type SupportResource = {
+  category: string;
+  title: string;
+  description: string;
+  href: string;
+  action: string;
+  contact?: {
+    label: string;
+    href: string;
+  };
+};
+
+const supportResources: SupportResource[] = [
+  {
+    category: "Directorio por estado",
+    title: "Encuentra servicios cerca de ti",
+    description:
+      "Mapa actualizado del Clúster de Protección con organizaciones y servicios disponibles en Venezuela.",
+    href: "https://venezuela.servicesadvisor.net/es",
+    action: "Abrir mapa de servicios",
+  },
+  {
+    category: "Información y reclamos",
+    title: "Línea de Contacto de Naciones Unidas",
+    description:
+      "Orienta sobre la asistencia humanitaria y permite comunicar comentarios, reclamos o solicitudes de información. No es una línea de emergencias médicas.",
+    href: "https://venezuela.un.org/es/268262-l%C3%ADnea-de-contacto-de-naciones-unidas",
+    action: "Ver información oficial",
+    contact: {
+      label: "Llamar al 0800 242 6200",
+      href: "tel:08002426200",
+    },
+  },
+  {
+    category: "Familiares desaparecidos",
+    title: "Restablecer el contacto con tu familia",
+    description:
+      "El CICR y la Cruz Roja Venezolana orientan gratuitamente a quienes perdieron el contacto con un familiar.",
+    href: "https://www.icrc.org/es/donde-trabajamos/venezuela",
+    action: "Abrir ayuda del CICR",
+    contact: {
+      label: "Llamar al +58 412 266 5945",
+      href: "tel:+584122665945",
+    },
+  },
+  {
+    category: "Atención humanitaria",
+    title: "Cruz Roja Venezolana",
+    description:
+      "Información oficial sobre asistencia, salud, agua, apoyo psicosocial y respuesta tras los terremotos.",
+    href: "https://cruzroja.ve/",
+    action: "Ir a Cruz Roja",
+  },
+  {
+    category: "Niñez y familias",
+    title: "UNICEF Venezuela",
+    description:
+      "Respuesta para niños, niñas y familias: salud, protección, agua, educación y apoyo psicosocial.",
+    href: "https://www.unicef.org/lac/terremotos-venezuela-ninos-ninas-urgente-ayuda",
+    action: "Ver respuesta de UNICEF",
+  },
+  {
+    category: "Salud",
+    title: "OPS/OMS: terremotos en Venezuela",
+    description:
+      "Actualizaciones sanitarias, informes de situación y materiales oficiales sobre la emergencia.",
+    href: "https://www.paho.org/es/terremotos-venezuela-2026",
+    action: "Ver información sanitaria",
+  },
+  {
+    category: "Ayuda comunitaria",
+    title: "Cáritas de Venezuela",
+    description:
+      "Red nacional y diocesana de acompañamiento y respuesta humanitaria para comunidades afectadas.",
+    href: "https://www.caritasvenezuela.org/",
+    action: "Ir a Cáritas",
+  },
+  {
+    category: "Protección y movilidad",
+    title: "ACNUR Venezuela",
+    description:
+      "Información para personas refugiadas, solicitantes de asilo, retornadas o en riesgo de apatridia.",
+    href: "https://help.unhcr.org/venezuela/",
+    action: "Buscar orientación",
+  },
+  {
+    category: "Respuesta nacional",
+    title: "Naciones Unidas en Venezuela",
+    description:
+      "Noticias y actualizaciones verificadas sobre la respuesta humanitaria y la recuperación.",
+    href: "https://venezuela.un.org/es",
+    action: "Ver actualizaciones",
+  },
+];
+
+const authorResources = [
+  {
+    title: "Dra. Indira Lucía Parra",
+    label: "Trayectoria profesional",
+    href: "https://www.linkedin.com/in/indira-parra-865b6711b/",
+  },
+  {
+    title: "Dr. Antonio José Arnal Meinhardt",
+    label: "Trayectoria profesional",
+    href: "https://www.linkedin.com/in/antonioarnal/",
+  },
+  {
+    title: "El camino del duelo",
+    label: "Libro de Antonio Arnal en Amazon",
+    href: "https://www.amazon.es/dp/B0BXNF2GXQ",
+  },
+  {
+    title: "Autopsias biopsicosociales",
+    label: "Publicación forense con Indira Parra",
+    href: "https://anyflip.com/ezxw/rybu/basic/101-150",
+  },
+];
+
+const resourcesChapter: ManualChapter = {
+  id: "recursos-y-ayuda",
+  title: "Recursos y ayuda",
+  subtitle: "Enlaces verificados para Venezuela",
+  description:
+    "Directorio práctico de ayuda humanitaria, salud, protección, búsqueda de familiares, autores y publicaciones.",
+  minutes: 4,
+  sections: [],
+  html: "",
+  searchText:
+    "ayuda Venezuela servicios salud protección Cruz Roja UNICEF OPS Cáritas ACNUR Naciones Unidas familiares desaparecidos autores currículum libros publicaciones",
+};
+
+const siteChapters = [...manualChapters, resourcesChapter];
 
 const quickNeeds: QuickNeed[] = [
   {
@@ -157,7 +293,7 @@ export function ManualApp() {
 
   const currentChapter = useMemo(
     () =>
-      manualChapters.find((chapter) => chapter.id === currentChapterId) ?? null,
+      siteChapters.find((chapter) => chapter.id === currentChapterId) ?? null,
     [currentChapterId],
   );
 
@@ -183,7 +319,7 @@ export function ManualApp() {
   const searchResults = useMemo(() => {
     const cleanQuery = normalize(query.trim());
     if (cleanQuery.length < 2) return [];
-    return manualChapters
+    return siteChapters
       .filter((chapter) =>
         normalize(
           `${chapter.title} ${chapter.subtitle} ${chapter.searchText}`,
@@ -220,7 +356,7 @@ export function ManualApp() {
   useEffect(() => {
     const readHash = () => {
       const [chapterId, sectionId] = location.hash.replace(/^#/, "").split("/");
-      if (manualChapters.some((chapter) => chapter.id === chapterId)) {
+      if (siteChapters.some((chapter) => chapter.id === chapterId)) {
         setCurrentChapterId(chapterId);
         setActiveSection(sectionId ?? "");
         if (sectionId) {
@@ -423,7 +559,14 @@ export function ManualApp() {
           </aside>
 
           <main className="reader-main">
-            <article ref={articleRef} className="manual-article">
+            <article
+              ref={articleRef}
+              className={`manual-article ${
+                currentChapter.id === "recursos-y-ayuda"
+                  ? "resources-article"
+                  : ""
+              }`}
+            >
               <div className="article-kicker">
                 <span>
                   {currentChapter.minutes} min de lectura aproximada
@@ -447,10 +590,97 @@ export function ManualApp() {
               {currentChapter.subtitle && (
                 <p className="article-subtitle">{currentChapter.subtitle}</p>
               )}
-              <div
-                className="article-content"
-                dangerouslySetInnerHTML={{ __html: currentChapter.html }}
-              />
+              {currentChapter.id === "recursos-y-ayuda" ? (
+                <div className="resources-hub">
+                  <div className="resource-safety-note">
+                    <ShieldAlert size={22} />
+                    <div>
+                      <strong>Si hay peligro inmediato</strong>
+                      <p>
+                        Acude al servicio de urgencias, centro sanitario o
+                        sistema local de emergencias disponible. Pide a una
+                        persona de confianza que te acompañe. Los directorios
+                        de esta página no sustituyen una emergencia médica.
+                      </p>
+                    </div>
+                  </div>
+
+                  <section>
+                    <div className="resource-section-heading">
+                      <MapPinned size={21} />
+                      <div>
+                        <span>Ayuda en Venezuela</span>
+                        <h2>Encuentra el recurso que necesitas</h2>
+                      </div>
+                    </div>
+                    <div className="resource-directory-grid">
+                      {supportResources.map((resource) => (
+                        <article className="resource-card" key={resource.href}>
+                          <span>{resource.category}</span>
+                          <h3>{resource.title}</h3>
+                          <p>{resource.description}</p>
+                          <div className="resource-card-actions">
+                            <a
+                              href={resource.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              {resource.action}
+                              <ExternalLink size={16} />
+                            </a>
+                            {resource.contact && (
+                              <a
+                                className="contact-link"
+                                href={resource.contact.href}
+                              >
+                                <Phone size={16} />
+                                {resource.contact.label}
+                              </a>
+                            )}
+                          </div>
+                        </article>
+                      ))}
+                    </div>
+                  </section>
+
+                  <section>
+                    <div className="resource-section-heading">
+                      <FileText size={21} />
+                      <div>
+                        <span>Autores y publicaciones</span>
+                        <h2>Trayectoria, libros y trabajos citados</h2>
+                      </div>
+                    </div>
+                    <div className="author-resource-grid">
+                      {authorResources.map((resource) => (
+                        <a
+                          href={resource.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          key={resource.href}
+                        >
+                          <span>{resource.label}</span>
+                          <strong>{resource.title}</strong>
+                          <ExternalLink size={17} />
+                        </a>
+                      ))}
+                    </div>
+                  </section>
+
+                  <p className="resources-reviewed">
+                    Enlaces revisados el 29 de julio de 2026. Los servicios,
+                    horarios y vías de contacto pueden cambiar durante una
+                    emergencia. Verifica siempre la información en la página
+                    oficial antes de desplazarte, compartir datos personales o
+                    enviar dinero.
+                  </p>
+                </div>
+              ) : (
+                <div
+                  className="article-content"
+                  dangerouslySetInnerHTML={{ __html: currentChapter.html }}
+                />
+              )}
             </article>
 
             <nav className="chapter-pagination" aria-label="Seguir leyendo">
@@ -510,7 +740,7 @@ export function ManualApp() {
           <section className="hero">
             <div className="hero-copy">
               <span className="eyebrow">
-                <Sparkles size={16} />
+                <HeartHandshake size={16} />
                 Primeros auxilios psicológicos ampliados
               </span>
               <h1>
@@ -614,7 +844,7 @@ export function ManualApp() {
           <section className="grounding-section">
             <div className="grounding-copy">
               <span className="eyebrow calm">
-                <Sparkles size={16} />
+                <CircleHelp size={16} />
                 Una pausa antes de seguir
               </span>
               <h2>Vuelve al presente en cinco pasos.</h2>
@@ -686,6 +916,42 @@ export function ManualApp() {
             </div>
           </section>
 
+          <section className="home-resources-section">
+            <div className="section-heading horizontal">
+              <div>
+                <span>Ayuda práctica y verificada</span>
+                <h2>Encuentra apoyo sin perderte entre cadenas y rumores.</h2>
+                <p>
+                  Accesos directos a servicios humanitarios, orientación,
+                  búsqueda de familiares y organizaciones que trabajan en
+                  Venezuela.
+                </p>
+              </div>
+              <button onClick={() => navigate("recursos-y-ayuda")}>
+                Ver todos los recursos
+                <ArrowRight size={18} />
+              </button>
+            </div>
+            <div className="home-resources-grid">
+              {supportResources.slice(0, 4).map((resource) => (
+                <a
+                  href={resource.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  key={resource.href}
+                >
+                  <span>{resource.category}</span>
+                  <strong>{resource.title}</strong>
+                  <p>{resource.description}</p>
+                  <small>
+                    {resource.action}
+                    <ExternalLink size={15} />
+                  </small>
+                </a>
+              ))}
+            </div>
+          </section>
+
           <section className="authors-strip">
             <div className="authors-mark">IP · AA</div>
             <div>
@@ -696,10 +962,36 @@ export function ManualApp() {
                 emergencias en Venezuela.
               </p>
             </div>
-            <button onClick={() => navigate("sobre-los-autores")}>
-              Conocer a los autores
-              <ArrowRight size={18} />
-            </button>
+            <div className="authors-actions">
+              <button onClick={() => navigate("sobre-los-autores")}>
+                Conocer a los autores
+                <ArrowRight size={18} />
+              </button>
+              <a
+                href="https://www.linkedin.com/in/indira-parra-865b6711b/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Perfil de Indira
+                <ExternalLink size={15} />
+              </a>
+              <a
+                href="https://www.linkedin.com/in/antonioarnal/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Perfil de Antonio
+                <ExternalLink size={15} />
+              </a>
+              <a
+                href="https://www.amazon.es/dp/B0BXNF2GXQ"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                El camino del duelo
+                <ExternalLink size={15} />
+              </a>
+            </div>
           </section>
 
           <footer>
@@ -711,8 +1003,8 @@ export function ManualApp() {
               <button onClick={() => navigate("antes-de-empezar")}>
                 Aviso importante
               </button>
-              <button onClick={() => navigate("referencias")}>
-                Referencias
+              <button onClick={() => navigate("recursos-y-ayuda")}>
+                Recursos y ayuda
               </button>
               <a href="./guia-reconstruccion-psicologica.pdf">PDF</a>
             </div>
@@ -739,6 +1031,13 @@ export function ManualApp() {
         <button onClick={() => setSearchOpen(true)}>
           <Search size={20} />
           Buscar
+        </button>
+        <button
+          className={currentChapter?.id === "recursos-y-ayuda" ? "active" : ""}
+          onClick={() => navigate("recursos-y-ayuda")}
+        >
+          <CircleHelp size={20} />
+          Ayuda
         </button>
         <button onClick={() => setSettingsOpen(true)}>
           <Type size={20} />
@@ -901,7 +1200,7 @@ export function ManualApp() {
                 </label>
                 {bookmarks.slice(-5).map((bookmark) => {
                   const [chapterId, sectionId] = bookmark.split("/");
-                  const chapter = manualChapters.find(
+                  const chapter = siteChapters.find(
                     (item) => item.id === chapterId,
                   );
                   const section = chapter?.sections.find(
@@ -962,6 +1261,21 @@ export function ManualApp() {
                   <ChevronRight size={18} />
                 </button>
               ))}
+              <button
+                className={
+                  currentChapter?.id === "recursos-y-ayuda" ? "active" : ""
+                }
+                onClick={() => navigate("recursos-y-ayuda")}
+              >
+                <span>
+                  <CircleHelp size={18} />
+                </span>
+                <div>
+                  <small>Directorio práctico</small>
+                  <strong>Recursos y ayuda en Venezuela</strong>
+                </div>
+                <ChevronRight size={18} />
+              </button>
             </nav>
           </section>
         </div>

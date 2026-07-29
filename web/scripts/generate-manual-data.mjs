@@ -63,6 +63,7 @@ const flushParagraph = () => {
 const finishChapter = () => {
   flushParagraph();
   if (!chapter.html.length) return;
+  if (chapter.id === "referencias") return;
   const words = chapter.text.join(" ").split(/\s+/).filter(Boolean).length;
   const firstParagraph =
     chapter.text.find((item) => item.length > 90) ?? chapter.subtitle;

@@ -32,7 +32,11 @@ test("renders the manual home in Spanish", async () => {
   assert.match(html, /Guía de reconstrucción psicológica/);
   assert.match(html, /Volver a respirar/);
   assert.match(html, /Buscar en la guía/);
+  assert.match(html, /Ayuda práctica y verificada/);
+  assert.match(html, /venezuela\.servicesadvisor\.net/);
+  assert.match(html, /linkedin\.com\/in\/indira-parra/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton/i);
+  assert.doesNotMatch(html, />Referencias</i);
 });
 
 test("ships the complete manual and offline shell", async () => {
@@ -43,6 +47,7 @@ test("ships the complete manual and offline shell", async () => {
   ]);
   assert.match(manualData, /"title": "Guía 7"/);
   assert.match(manualData, /"title": "Sobre los autores"/);
+  assert.doesNotMatch(manualData, /"title": "Referencias"/);
   assert.ok(manualData.length > 150_000);
   assert.equal(JSON.parse(manifest).lang, "es-VE");
   assert.match(serviceWorker, /CACHE_NAME/);
