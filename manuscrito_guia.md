@@ -533,7 +533,7 @@ No presiones a la familia para “aceptar” una muerte que no está confirmada 
 - “También necesitamos comer y dormir mientras esperamos.”
 - “Podemos hacer un acto de cuidado sin convertirlo en una despedida definitiva.”
 
-Conviene designar a una persona para centralizar información, registrar nombres y fuentes, y limitar la exposición de menores a rumores. La familia puede crear un espacio simbólico provisional —una vela, una fotografía, una oración— sin decidir todavía qué significa.
+Conviene designar a una persona para centralizar información, registrar nombres y fuentes, y limitar la exposición de menores a rumores. La familia puede crear un espacio simbólico temporal —una vela, una fotografía, una oración— sin decidir todavía qué significa.
 
 La incertidumbre prolongada desgasta. La atención profesional, los grupos de familiares y la orientación jurídica o institucional pueden ser tan importantes como el apoyo emocional.
 

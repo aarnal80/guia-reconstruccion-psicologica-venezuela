@@ -98,11 +98,13 @@ with zipfile.ZipFile(epub_path) as zf:
 md = md_path.read_text(encoding="utf-8")
 web = html_path.read_text(encoding="utf-8")
 assert "\ufffd" not in md
+assert "provisional" not in md.lower()
 assert "<!-- PAGEBREAK -->" not in web
 assert "[[TOC_STATIC]]" not in web
 assert "<nav" in web and 'lang="es"' in web
 assert 'class="editorial-toc"' in web
 assert title.upper() in web
+assert "provisional" not in web.lower()
 assert web.count('class="notes-page"') == 8
 assert 'class="worksheet"' in web
 assert isbn in web and isbn in md
