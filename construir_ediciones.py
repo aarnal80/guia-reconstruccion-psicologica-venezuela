@@ -25,6 +25,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas as pdfcanvas
 from reportlab.lib.utils import ImageReader
+from pypdf import PdfReader
 from reportlab.platypus import (
     BaseDocTemplate,
     Frame,
@@ -48,12 +49,13 @@ PDF_PATH = ROOT / f"{STEM}_KDP_6x9.pdf"
 HTML_PATH = ROOT / f"{STEM}_web.html"
 EPUB_PATH = ROOT / f"{STEM}.epub"
 FRONT_COVER_PDF = ROOT / "Portada_provisional_frontal_6x9.pdf"
-WRAP_COVER_PDF = ROOT / "Portada_provisional_KDP_90pag_crema.pdf"
+WRAP_COVER_PDF = ROOT / "Portada_provisional_KDP_crema.pdf"
 COVER_ART = ROOT / "arte_portada_venezuela_luto_luminosa.png"
 
-TITLE = "Guía de reconstrucción psicológica"
-SUBTITLE = "Cuando todo se derrumba por dentro y por fuera"
+TITLE = "Guía de reconstrucción psicológica de una catástrofe"
+SUBTITLE = "Venezuela"
 AUTHORS = "Indira Lucía Parra y Antonio José Arnal Meinhardt"
+ISBN = "9798190186116"
 
 # Named design override:
 # Base preset: narrative_proposal.
@@ -68,17 +70,17 @@ INK = "1F2529"
 
 TOC_ENTRIES = [
     ("Introducción", "Por qué nace esta guía", 7),
-    ("Guía 1", "Comprender lo que sentimos es el primer paso para reconstruirnos", 11),
-    ("Guía 2", "¿Qué necesita nuestro cerebro para comenzar a recuperarse?", 21),
-    ("Guía 3", "¿Cómo atravesar el duelo sin dejar de vivir?", 32),
-    ("Guía 4", "¿Cómo ayudamos a quien está sufriendo?", 45),
-    ("Guía 5", "Niños, niñas y adolescentes", 54),
-    ("Guía 6", "Cuando quien cuida también necesita ser cuidado", 63),
-    ("Guía 7", "Reconstruirse: volver a habitar la vida", 70),
-    ("Herramientas prácticas", "Hojas de trabajo y planes breves", 78),
-    ("Palabras para seguir caminando", "", 83),
-    ("Referencias", "", 85),
-    ("Sobre los autores", "", 88),
+    ("Guía 1", "Comprender lo que sentimos es el primer paso para reconstruirnos", 12),
+    ("Guía 2", "¿Qué necesita nuestro cerebro para comenzar a recuperarse?", 23),
+    ("Guía 3", "¿Cómo atravesar el duelo sin dejar de vivir?", 35),
+    ("Guía 4", "¿Cómo ayudamos a quien está sufriendo?", 49),
+    ("Guía 5", "Niños, niñas y adolescentes", 59),
+    ("Guía 6", "Cuando quien cuida también necesita ser cuidado", 70),
+    ("Guía 7", "Reconstruirse: volver a habitar la vida", 78),
+    ("Herramientas prácticas", "Hojas de trabajo y planes breves", 88),
+    ("Palabras para seguir caminando", "", 93),
+    ("Referencias", "", 95),
+    ("Sobre los autores", "", 98),
 ]
 
 
@@ -94,6 +96,10 @@ def parse_markdown(text: str):
             continue
         if raw.strip() == "<!-- PAGEBREAK -->":
             blocks.append(("pagebreak", "", None))
+            i += 1
+            continue
+        if raw.strip() == "[[NOTES_PAGE]]":
+            blocks.append(("notes", "", None))
             i += 1
             continue
         m = re.match(r"^(#{1,3})\s+(.*)$", raw)
@@ -430,6 +436,7 @@ def configure_docx_styles(doc: Document):
     worksheet.paragraph_format.widow_control = True
     quote.paragraph_format.space_after = Pt(9)
     quote.paragraph_format.line_spacing = 1.25
+    quote.paragraph_format.keep_together = True
 
     if "Reference" not in styles:
         styles.add_style("Reference", WD_STYLE_TYPE.PARAGRAPH)
@@ -465,9 +472,9 @@ def build_docx(blocks):
 
     header = section.header.paragraphs[0]
     header.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    run = header.add_run("GUÍA DE RECONSTRUCCIÓN PSICOLÓGICA")
+    run = header.add_run(TITLE.upper())
     run.font.name = "Georgia"
-    run.font.size = Pt(8)
+    run.font.size = Pt(6.5)
     run.font.color.rgb = RGBColor.from_string(MUTED)
     footer = section.footer.paragraphs[0]
     add_page_number(footer)
@@ -521,6 +528,13 @@ def build_docx(blocks):
             p = doc.add_paragraph(style="Block Quote")
             add_docx_runs(p, content, italic=True)
             continue
+        if kind == "notes":
+            p = doc.add_paragraph(style="Heading 2")
+            add_docx_runs(p, "Mis notas")
+            for _ in range(15):
+                line = doc.add_paragraph(style="Worksheet")
+                add_docx_runs(line, "_" * 40)
+            continue
         if kind in ("ul", "ol"):
             style = "List Bullet" if kind == "ul" else "List Number"
             num_id = new_numbering_instance(doc, 7) if kind == "ol" else None
@@ -573,9 +587,9 @@ class BookDocTemplate(BaseDocTemplate):
         page = canvas.getPageNumber()
         if page > 1:
             canvas.saveState()
-            canvas.setFont("Georgia", 7.5)
+            canvas.setFont("Georgia", 6.4)
             canvas.setFillColor(HexColor(f"#{MUTED}"))
-            canvas.drawCentredString(3 * inch, 8.55 * inch, "GUÍA DE RECONSTRUCCIÓN PSICOLÓGICA")
+            canvas.drawCentredString(3 * inch, 8.55 * inch, TITLE.upper())
             canvas.drawCentredString(3 * inch, 0.35 * inch, str(page))
             canvas.restoreState()
 
@@ -823,7 +837,14 @@ def build_pdf(blocks):
                 story.append(Paragraph(reportlab_inline(content), styles["H3"]))
             continue
         if kind == "quote":
-            story.append(Paragraph(reportlab_inline(content), styles["Quote"]))
+            story.append(
+                KeepTogether([Paragraph(reportlab_inline(content), styles["Quote"])])
+            )
+            continue
+        if kind == "notes":
+            story.append(Paragraph("Mis notas", styles["H2"]))
+            for _ in range(15):
+                story.append(Paragraph("_" * 40, styles["Worksheet"]))
             continue
         if kind in ("ul", "ol"):
             items = [
@@ -904,6 +925,9 @@ def build_html(blocks):
                 toc.append((level, content, slug))
         elif kind == "quote":
             body.append(f"<blockquote>{html_inline(content)}</blockquote>")
+        elif kind == "notes":
+            lines = "".join('<div class="note-line"></div>' for _ in range(15))
+            body.append(f'<section class="notes-page"><h2>Mis notas</h2>{lines}</section>')
         elif kind in ("ul", "ol"):
             tag = kind
             items = "".join(f"<li>{html_inline(x)}</li>" for x in content)
@@ -911,7 +935,9 @@ def build_html(blocks):
         elif content == "[[TOC_STATIC]]":
             body.append(static_toc_html())
         else:
-            body.append(f"<p>{html_inline(content)}</p>")
+            worksheet = kind == "hardline" or bool(re.search(r"_{3,}", content))
+            class_name = ' class="worksheet"' if worksheet else ""
+            body.append(f"<p{class_name}>{html_inline(content)}</p>")
     toc_html = "".join(
         f'<li class="l{level}"><a href="#{slug}">{html.escape(text)}</a></li>'
         for level, text, slug in toc
@@ -923,6 +949,7 @@ def build_html(blocks):
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{TITLE} — {SUBTITLE}</title>
 <meta name="author" content="{AUTHORS}">
+<meta name="isbn" content="{ISBN}">
 <meta name="description" content="Primeros auxilios psicológicos ampliados para personas, familias y comunidades afectadas por catástrofes.">
 <style>
 :root{{--ink:#1f2529;--navy:#17324d;--teal:#2d6f73;--gold:#9a6b32;--pale:#eef5f4;--paper:#fffdf9}}
@@ -933,7 +960,7 @@ nav h2{{font-size:1rem;margin-top:0}} nav ul{{padding-left:0;list-style:none}} n
 nav a{{color:var(--teal);text-decoration:none}} main{{background:var(--paper);padding:56px 68px;border-radius:12px;box-shadow:0 8px 30px #17324d18}}
 h1{{font-size:2rem;color:var(--navy);line-height:1.2;margin:3rem 0 1rem}} h1:first-child{{margin-top:0}}
 h2{{font-size:1.45rem;color:var(--teal);line-height:1.3;margin:2rem 0 .7rem}} h3{{font-size:1.05rem;color:var(--gold);margin:1.5rem 0 .4rem}}
-p{{margin:.65rem 0;text-align:justify;hyphens:auto}} li{{margin:.35rem 0}} blockquote{{margin:1.3rem 0;padding:1rem 1.2rem;background:var(--pale);border-left:4px solid var(--teal);color:var(--navy);font-style:italic}}
+p{{margin:.65rem 0;text-align:justify;hyphens:auto}} p.worksheet{{text-align:left;hyphens:none}} li{{margin:.35rem 0}} blockquote{{margin:1.3rem 0;padding:1rem 1.2rem;background:var(--pale);border-left:4px solid var(--teal);color:var(--navy);font-style:italic}}.notes-page{{page-break-before:always;page-break-after:always;min-height:8in}}.notes-page h2{{text-align:left}}.note-line{{height:.42in;border-bottom:1px solid #9aa9ad}}
 .editorial-toc{{margin:1rem 0 2rem}}.toc-entry{{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center;padding:.6rem 0;border-bottom:1px solid #d8e3e3}}
 .toc-entry strong{{display:block;color:var(--teal);font-size:.96rem}}.toc-entry span{{display:block;color:var(--muted);font-size:.9rem;line-height:1.35}}.toc-page{{color:var(--gold);font-size:.95rem}}
 .pagebreak{{border:0;border-top:1px solid #d9e2e1;margin:3rem 0}} a{{color:var(--teal)}} strong{{color:#132f3e}}
@@ -965,7 +992,7 @@ def build_epub(blocks):
 </container>""",
         encoding="utf-8",
     )
-    css = """body{font-family:serif;line-height:1.5;color:#1f2529}p{text-align:justify;hyphens:auto}h1{color:#17324d}h2{color:#2d6f73}h3{color:#9a6b32}blockquote{border-left:3px solid #2d6f73;padding-left:1em;font-style:italic}.editorial-toc{margin:1em 0 2em}.toc-entry{display:flex;justify-content:space-between;gap:1em;padding:.5em 0;border-bottom:1px solid #d8e3e3}.toc-entry strong,.toc-entry span{display:block}.toc-entry strong{color:#2d6f73}.toc-entry span{color:#66737c;font-size:.9em}.toc-page{color:#9a6b32}.pagebreak{page-break-after:always}"""
+    css = """body{font-family:serif;line-height:1.5;color:#1f2529}p{text-align:justify;hyphens:auto}p.worksheet{text-align:left;hyphens:none}h1{color:#17324d}h2{color:#2d6f73}h3{color:#9a6b32}blockquote{border-left:3px solid #2d6f73;padding-left:1em;font-style:italic}.notes-page{page-break-before:always;page-break-after:always;min-height:8in}.note-line{height:.42in;border-bottom:1px solid #9aa9ad}.editorial-toc{margin:1em 0 2em}.toc-entry{display:flex;justify-content:space-between;gap:1em;padding:.5em 0;border-bottom:1px solid #d8e3e3}.toc-entry strong,.toc-entry span{display:block}.toc-entry strong{color:#2d6f73}.toc-entry span{color:#66737c;font-size:.9em}.toc-page{color:#9a6b32}.pagebreak{page-break-after:always}"""
     (temp / "OEBPS" / "style.css").write_text(css, encoding="utf-8")
     body = []
     nav = []
@@ -981,13 +1008,18 @@ def build_epub(blocks):
                 nav.append((level, content, slug))
         elif kind == "quote":
             body.append(f"<blockquote>{html_inline(content)}</blockquote>")
+        elif kind == "notes":
+            lines = "".join('<div class="note-line"></div>' for _ in range(15))
+            body.append(f'<section class="notes-page"><h2>Mis notas</h2>{lines}</section>')
         elif kind in ("ul", "ol"):
             items = "".join(f"<li>{html_inline(x)}</li>" for x in content)
             body.append(f"<{kind}>{items}</{kind}>")
         elif content == "[[TOC_STATIC]]":
             body.append(static_toc_html())
         else:
-            body.append(f"<p>{html_inline(content)}</p>")
+            worksheet = kind == "hardline" or bool(re.search(r"_{3,}", content))
+            class_name = ' class="worksheet"' if worksheet else ""
+            body.append(f"<p{class_name}>{html_inline(content)}</p>")
     xhtml = f"""<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><title>{TITLE}</title><link rel="stylesheet" href="style.css" type="text/css"/></head><body>{''.join(body)}</body></html>"""
@@ -1005,7 +1037,7 @@ def build_epub(blocks):
 <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
 <dc:identifier id="pub-id">urn:uuid:guia-reconstruccion-psicologica-2026</dc:identifier>
 <dc:title>{TITLE}</dc:title><dc:creator>{AUTHORS}</dc:creator><dc:language>es</dc:language>
-<meta property="dcterms:modified">2026-07-29T00:00:00Z</meta>
+<meta property="dcterms:modified">2026-08-01T00:00:00Z</meta>
 </metadata>
 <manifest>
 <item id="book" href="book.xhtml" media-type="application/xhtml+xml"/>
@@ -1055,15 +1087,16 @@ def draw_front_panel(canvas, x, y, width, height):
     title_x = x + margin
     title_y = y + height - 1.70 * inch
     canvas.setFillColor(navy)
-    canvas.setFont("Georgia-Bold", 27)
+    canvas.setFont("Georgia-Bold", 25)
     canvas.drawString(title_x, title_y, "GUÍA DE")
-    canvas.setFont("Georgia-Bold", 26)
-    canvas.drawString(title_x, title_y - 0.48 * inch, "RECONSTRUCCIÓN")
-    canvas.drawString(title_x, title_y - 0.96 * inch, "PSICOLÓGICA")
+    canvas.setFont("Georgia-Bold", 23)
+    canvas.drawString(title_x, title_y - 0.43 * inch, "RECONSTRUCCIÓN")
+    canvas.drawString(title_x, title_y - 0.86 * inch, "PSICOLÓGICA DE UNA")
+    canvas.drawString(title_x, title_y - 1.29 * inch, "CATÁSTROFE")
 
     canvas.setStrokeColor(teal)
     canvas.setLineWidth(1.1)
-    canvas.line(title_x, title_y - 1.26 * inch, x + width - margin, title_y - 1.26 * inch)
+    canvas.line(title_x, title_y - 1.58 * inch, x + width - margin, title_y - 1.58 * inch)
 
     subtitle_style = ParagraphStyle(
         "CoverSubtitle",
@@ -1072,9 +1105,9 @@ def draw_front_panel(canvas, x, y, width, height):
         leading=17,
         textColor=navy,
     )
-    subtitle = Paragraph("Cuando todo se derrumba<br/>por dentro y por fuera", subtitle_style)
+    subtitle = Paragraph("Venezuela", subtitle_style)
     subtitle.wrapOn(canvas, 3.55 * inch, 0.8 * inch)
-    subtitle.drawOn(canvas, title_x, title_y - 2.05 * inch)
+    subtitle.drawOn(canvas, title_x, title_y - 2.04 * inch)
 
     canvas.setFillColor(navy)
     canvas.setFont("Georgia-Bold", 10.2)
@@ -1100,7 +1133,9 @@ def build_covers():
     front.showPage()
     front.save()
 
-    page_count = 90
+    interior_page_count = len(PdfReader(PDF_PATH).pages)
+    # KDP redondea al siguiente número par cuando el interior tiene páginas impares.
+    page_count = interior_page_count + (interior_page_count % 2)
     bleed = 0.125 * inch
     trim_w = 6 * inch
     trim_h = 9 * inch
@@ -1205,7 +1240,7 @@ def build_covers():
     cover.rotate(90)
     cover.setFillColor(HexColor("#F4F0E8"))
     cover.setFont("Georgia-Bold", 7.5)
-    cover.drawCentredString(3.95 * inch, -2.6, "GUÍA DE RECONSTRUCCIÓN PSICOLÓGICA")
+    cover.drawCentredString(3.95 * inch, -2.6, TITLE.upper())
     cover.restoreState()
 
     cover.showPage()

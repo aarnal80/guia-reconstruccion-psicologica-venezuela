@@ -1,6 +1,6 @@
-# GUÍA DE RECONSTRUCCIÓN PSICOLÓGICA
+# GUÍA DE RECONSTRUCCIÓN PSICOLÓGICA DE UNA CATÁSTROFE
 
-## Cuando todo se derrumba por dentro y por fuera
+## Venezuela
 
 ### Primeros auxilios psicológicos ampliados para personas, familias y comunidades
 
@@ -25,6 +25,8 @@ Los relatos incluidos son escenas compuestas: reúnen situaciones clínicas y hu
 Información de contexto revisada al **29 de julio de 2026**. En una emergencia, las cifras, los servicios y los recursos disponibles pueden cambiar. Verifica siempre la información práctica con fuentes oficiales actualizadas.
 
 © 2026 Indira Lucía Parra y Antonio José Arnal Meinhardt. Todos los derechos reservados. Se autoriza compartir gratuitamente esta obra completa, sin modificaciones y reconociendo la autoría, para fines personales, educativos, sanitarios o humanitarios no comerciales. Cualquier adaptación, venta por terceros o uso comercial requiere autorización escrita de los autores.
+
+**ISBN de la edición impresa:** 9798190186116
 
 <!-- PAGEBREAK -->
 
@@ -74,6 +76,8 @@ Venezuela ya conocía la marca de otros desastres. La Tragedia de Vargas de 1999
 
 Esta guía nace para acompañar ese tiempo. No fue pensada desde la distancia fría de una lista de recomendaciones. Nace de preguntas que personas afectadas, familiares, migrantes, profesionales y voluntarios hacen de verdad:
 
+> Cuando todo se derrumba, permanecer puede ser el primer acto de reconstrucción.
+
 - ¿Es normal que no pueda llorar?
 - ¿Por qué tiemblo si ya no está temblando?
 - ¿Cómo decido si regreso a trabajar?
@@ -119,6 +123,10 @@ Cada guía termina con dos bloques:
 **Qué me gustaría que recordaras.** Tres ideas esenciales, pensadas para los días en que la concentración no alcanza para mucho más.
 
 Si al leer una escena sientes que tu cuerpo se activa demasiado, detente. Mira a tu alrededor. Nombra cinco cosas que ves. Apoya los pies. Busca a alguien. Leer también debe dosificarse.
+
+<!-- PAGEBREAK -->
+
+[[NOTES_PAGE]]
 
 <!-- PAGEBREAK -->
 
@@ -273,6 +281,10 @@ La persona a quien puedo avisar es: ________________________________
 1. Muchas reacciones intensas son intentos de protección, no señales de debilidad.
 2. No existe una única manera correcta de sentir o expresar el dolor.
 3. Pedir ayuda a tiempo es una forma de cuidado, no un fracaso.
+
+<!-- PAGEBREAK -->
+
+[[NOTES_PAGE]]
 
 <!-- PAGEBREAK -->
 
@@ -468,6 +480,10 @@ Escribe una cuenta o grupo rojo que silenciarás por 24 horas: ______
 1. Tu cuerpo no está fallando: está intentando protegerte, pero sus síntomas también deben valorarse si son graves.
 2. Seguridad, descanso, alimento, vínculo y rutina son parte del tratamiento humano de una emergencia.
 3. Recuperarse no depende de una hazaña; se construye con acciones pequeñas y repetidas.
+
+<!-- PAGEBREAK -->
+
+[[NOTES_PAGE]]
 
 <!-- PAGEBREAK -->
 
@@ -708,6 +724,10 @@ Lo que intentaré llevar conmigo es…
 
 <!-- PAGEBREAK -->
 
+[[NOTES_PAGE]]
+
+<!-- PAGEBREAK -->
+
 # Guía 4
 
 ## ¿Cómo ayudamos a quien está sufriendo?
@@ -753,6 +773,8 @@ No pidas detalles gráficos para satisfacer curiosidad. No fuerces a repetir la 
 
 El silencio acompañado puede ser ayuda. Puedes decir:
 
+> No todos los silencios están vacíos.
+
 > No tienes que contarme nada que no quieras. Puedo quedarme aquí un rato.
 
 ## Qué decir
@@ -778,6 +800,8 @@ El silencio acompañado puede ser ayuda. Puedes decir:
 Estas frases suelen intentar cerrar la incomodidad de quien acompaña. Sustitúyelas por presencia y preguntas.
 
 ## Ayuda práctica
+
+> En medio del caos, encontrar a otro es una forma de encontrarse.
 
 En una emergencia, resolver algo concreto puede reducir más angustia que una larga conversación:
 
@@ -916,6 +940,10 @@ Cuándo volveré a contactar: ______________________________________
 
 <!-- PAGEBREAK -->
 
+[[NOTES_PAGE]]
+
+<!-- PAGEBREAK -->
+
 # Guía 5
 
 ## Niños, niñas y adolescentes
@@ -956,6 +984,17 @@ Si no sabes:
 
 > No lo sé todavía. Cuando tenga información verdadera te la diré.
 
+Una conversación real puede avanzar por preguntas muy concretas. No hace falta responderlas todas de una vez ni encontrar palabras perfectas. Por ejemplo:
+
+> —¿Voy a volver a ver a mamá?  
+> —No podremos verla físicamente como antes, porque murió. Podemos seguir recordándola, mirar sus fotos y hablar de ella.  
+> —¿Está en el cielo?  
+> —Cada familia tiene sus propias creencias. Nosotros creemos que está en el cielo. Lo que sabemos con seguridad es que su cuerpo dejó de funcionar y que no va a volver.  
+> —¿Y quién me va a cuidar?  
+> —Yo voy a estar contigo. También estarán la abuela y el tío. Te iremos contando qué va a pasar.
+
+Adapta la relación familiar —mamá, papá, hermano, hermana, abuelo u otra persona querida— y la explicación espiritual a las creencias de la familia. No presentes una creencia como un hecho comprobable ni uses el cielo para evitar decir que la persona murió. Responde solo a lo que el niño pregunta, comprueba qué entendió y permite que vuelva a preguntar otro día.
+
 ## Qué pueden comprender según la edad
 
 ### Primera infancia
@@ -995,9 +1034,9 @@ No interpretes todo silencio como rechazo. Acércate sin invadir:
 
 Respeta privacidad razonable, pero no mantengas secretos de riesgo.
 
-## El juego no significa que olvidaron
+## El juego es el lenguaje de los niños
 
-Un niño puede llorar y diez minutos después jugar. Esa oscilación es saludable. El juego permite regularse y representar lo que no puede explicar.
+Un niño puede llorar y diez minutos después jugar. Esa oscilación es saludable. El juego no significa que haya olvidado: es uno de sus principales lenguajes. Le permite regularse y representar lo que todavía no puede explicar con palabras.
 
 Después de un terremoto puede repetir escenas de rescate o construir y derrumbar casas. Observa sin interpretar cada gesto. Puedes acompañar:
 
@@ -1083,11 +1122,17 @@ Qué suele calmarle: ______________________________________________
 
 <!-- PAGEBREAK -->
 
+[[NOTES_PAGE]]
+
+<!-- PAGEBREAK -->
+
 # Guía 6
 
 ## Cuando quien cuida también necesita ser cuidado
 
 Rescatistas, sanitarios, psicólogos, voluntarios, docentes, líderes comunitarios y familiares pueden estar ayudando mientras viven pérdidas propias. La bata, el uniforme o el cargo no hacen impermeable a nadie.
+
+> Acompañar el sufrimiento ajeno no nos vuelve inmunes al propio.
 
 Algunas personas continúan trabajando porque no hay reemplazo. Otras porque ayudar da sentido. Otras porque detenerse permitiría sentir todo lo que han pospuesto. Ninguna de estas razones autoriza a una organización a consumir a su equipo.
 
@@ -1134,6 +1179,10 @@ Una médica puede atender con precisión y llorar al salir. Un psicólogo puede 
 La competencia profesional y el dolor pueden coexistir. Pero hay un punto en que la seguridad exige detenerse o cambiar de función: falta extrema de sueño, crisis repetidas, errores, desconexión, consumo, ideas suicidas o incapacidad para concentrarse en una tarea crítica.
 
 Pedir un relevo es una decisión clínica y ética.
+
+> No hay que ser invulnerable para poder convertirse en refugio.
+
+> Quien contiene también necesita dónde poder desbordarse.
 
 ## Fatiga por compasión, trauma secundario y agotamiento
 
@@ -1211,6 +1260,10 @@ Si varias respuestas indican riesgo, habla con coordinación antes de asumir una
 
 <!-- PAGEBREAK -->
 
+[[NOTES_PAGE]]
+
+<!-- PAGEBREAK -->
+
 # Guía 7
 
 ## Reconstruirse: volver a habitar la vida
@@ -1235,9 +1288,9 @@ No necesitas sentir esperanza para realizar un acto que la proteja.
 
 Evita exigirte “sacar algo positivo” de inmediato. Si algún sentido aparece, debe pertenecerte. Nadie puede imponerlo desde fuera.
 
-## Recuperar agencia
+## Recuperar estructura y capacidad de coordinar
 
-La catástrofe impone decisiones y quita control. La reconstrucción devuelve elecciones, incluso pequeñas.
+La catástrofe desordena horarios, responsabilidades y decisiones, y quita sensación de control. La reconstrucción ayuda a recuperar estructura y formas sencillas de coordinar la vida cotidiana, incluso mediante elecciones pequeñas.
 
 Pregunta cada mañana:
 
@@ -1246,7 +1299,7 @@ Pregunta cada mañana:
 3. ¿Qué necesito pedir?
 4. ¿Qué puedo posponer?
 
-La agencia no es autosuficiencia. Incluye elegir recibir ayuda.
+Recuperar estructura no significa hacerlo todo en solitario. También incluye repartir tareas, acordar prioridades y elegir recibir ayuda.
 
 ## Reconstruir comunidad
 
@@ -1270,6 +1323,8 @@ La solidaridad es más protectora cuando tiene organización, transparencia y l�
 
 Regresar a un edificio, una calle o una montaña puede activar la alarma. Antes de exponerte, confirma que el lugar fue evaluado y es seguro. La terapia no vuelve segura una estructura dañada.
 
+No entres en un edificio con escombros o daños estructurales, aunque dentro haya documentos, fotografías u otro objeto muy valioso. Pide ayuda a bomberos, protección civil o personal capacitado para valorar si es posible recuperarlo sin exponerte. Si la autoridad ha clausurado el lugar o indica que no se puede entrar, respeta esa decisión. Entrar “solo un momento” o “muy rápido” también puede acabar en una lesión grave o una nueva pérdida.
+
 Si el lugar es seguro y deseas regresar, hazlo de forma gradual:
 
 1. Mira una fotografía actual o el recorrido.
@@ -1279,6 +1334,8 @@ Si el lugar es seguro y deseas regresar, hazlo de forma gradual:
 5. Repite sin aumentar demasiado la dificultad.
 
 No uses alcohol o sedantes para poder entrar. Si el miedo es incapacitante, busca apoyo profesional; los tratamientos focalizados en trauma deben ser realizados por personal capacitado.[5]
+
+> Mejor demorarse para no desmoronarse.
 
 ## Fechas, lluvias, sonidos y aniversarios
 
@@ -1312,7 +1369,9 @@ Puedes construir un archivo de memoria:
 - valores;
 - música.
 
-No lo hagas todo en un día. Si una actividad te desborda, detente y vuelve con apoyo.
+Las fotografías, los audios, los objetos y los relatos de otras personas pueden ayudarte a reconstruir el rostro, la voz y escenas compartidas. Es posible que algunos detalles regresen más adelante; la memoria no siempre vuelve cuando se la obliga.
+
+No lo hagas todo en un día. Si una imagen o un objeto te produce mucha ansiedad, detente, orienta la mirada hacia el lugar donde estás, afloja el cuerpo y respira sin forzarte. Puedes retomarlo otro día o con alguien de confianza. Trátate con compasión: exigirte recordar con exactitud aumenta la ansiedad y puede dificultar todavía más el recuerdo.
 
 El miedo a olvidar un rostro o una voz es frecuente. No recordar cada detalle no equivale a olvidar el vínculo.
 
@@ -1334,11 +1393,19 @@ Después de experiencias difíciles algunas personas descubren prioridades, vín
 
 El crecimiento y el sufrimiento pueden coexistir. No hace falta agradecer lo ocurrido para reconocer lo que has construido después.
 
+> Hay dolores que no se superan: se transforman.
+
+> Sanar no es volver a ser quien eras, sino descubrir quién puede ser ahora.
+
 ## Un futuro que incluye a quien falta
 
 Seguir viviendo no abandona a quien murió. Puedes llevarlo en decisiones, celebraciones y valores sin suspender tu propia vida.
 
 La herida del duelo se parece a una cicatriz. Puede doler cuando cambia el tiempo o cuando algo la roza. Con los años puede seguir visible sin estar abierta todos los días. No buscamos arrancarla. Buscamos que no gobierne todo el cuerpo.
+
+> La vida transcurre entre rotura y sutura.
+
+> El sufrimiento pasa, el haber sufrido no.
 
 ## ¿Qué puedes hacer?
 
@@ -1370,6 +1437,10 @@ Un gesto pequeño de futuro: ______________________________________
 1. La esperanza puede empezar como una acción antes de sentirse como una emoción.
 2. Reconstruirse no exige volver a ser la persona de antes.
 3. Seguir viviendo no borra el amor ni traiciona a quien falta.
+
+<!-- PAGEBREAK -->
+
+[[NOTES_PAGE]]
 
 <!-- PAGEBREAK -->
 
@@ -1512,6 +1583,8 @@ Quizá llegaste hasta aquí leyendo por partes. Quizá alguien te leyó. Quizá 
 No sé cuál de tus pérdidas pesa más hoy. Puede ser una persona, una casa, una parte de tu cuerpo, el país que recuerdas o la certeza de que el suelo era firme.
 
 No voy a decirte que seas fuerte. Tal vez ya has sido fuerte demasiado tiempo.
+
+> No pedir fortaleza a quien todavía está recogiendo sus pedazos.
 
 Quiero decirte algo más sencillo: no tienes que reconstruir toda tu vida hoy.
 

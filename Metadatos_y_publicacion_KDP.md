@@ -2,9 +2,9 @@
 
 ## Identidad del libro
 
-**Título:** Guía de reconstrucción psicológica
+**Título:** Guía de reconstrucción psicológica de una catástrofe
 
-**Subtítulo:** Cuando todo se derrumba por dentro y por fuera
+**Subtítulo:** Venezuela
 
 **Descripción complementaria:** Primeros auxilios psicológicos ampliados para personas, familias y comunidades
 
@@ -64,7 +64,7 @@ No clasificar como libro infantil ni como libro de poco contenido.
 
 - Interior: `Guia_reconstruccion_psicologica_Indira_Parra_Antonio_Arnal_KDP_6x9.pdf`
 - Tamaño: 6 × 9 pulgadas (15,24 × 22,86 cm)
-- Páginas: 90
+- Páginas del PDF interior: 100
 - Sangrado: no
 - Tinta: negra
 - Papel recomendado: crema para lectura prolongada; blanco si se prioriza el contraste de las hojas de trabajo
@@ -72,13 +72,13 @@ No clasificar como libro infantil ni como libro de poco contenido.
 - Márgenes interiores y exteriores: 0,82 pulgadas
 - Fuente interior incrustada: Georgia
 - Texto de lomo: permitido por superar 79 páginas
-- Cubierta provisional completa: `Portada_provisional_KDP_90pag_crema.pdf`
+- Cubierta provisional completa: `Portada_provisional_KDP_crema.pdf`
 - Portada frontal provisional: `Portada_provisional_frontal_6x9.pdf`
 - Portada frontal en JPG: `Portada_provisional_frontal_6x9.jpg`
 - Arte final luminoso de cubierta: `arte_portada_venezuela_luto_luminosa.png`
 - Primera versión nocturna conservada: `arte_portada_venezuela_luto.png`
 
-La cubierta provisional completa está calculada para papel crema y 90 páginas: lomo de 5,715 mm (0,225 pulgadas), formato final de 12,475 × 9,25 pulgadas con sangrado. El arte representa a Venezuela, el luto y la reconstrucción mediante papel rasgado, un lazo negro, una costura dorada y flores amarillas. Debe regenerarse con la plantilla oficial de KDP si cambia el papel, el recuento de páginas o la edición interior.
+La cubierta provisional completa está calculada para papel crema y 100 páginas: lomo de 6,35 mm (0,250 pulgadas), formato final de 12,500 × 9,25 pulgadas con sangrado. El arte representa a Venezuela, el luto y la reconstrucción mediante papel rasgado, un lazo negro, una costura dorada y flores amarillas. El generador recalcula el lomo desde el PDF interior; aun así, debe comprobarse con la plantilla oficial de KDP antes de publicar.
 
 ## eBook y distribución gratuita
 
@@ -90,14 +90,11 @@ No inscribir el eBook en **KDP Select** si el EPUB o el contenido digital comple
 
 ## ISBN
 
-El eBook Kindle no necesita ISBN.
+**ISBN asignado a la edición impresa:** `9798190186116`
 
-Para la tapa blanda:
+El eBook Kindle no necesita ISBN; este número corresponde a la edición impresa.
 
-- ISBN gratuito de KDP: válido solo dentro de KDP y muestra “Publicación independiente” como sello.
-- ISBN propio: preferible si se publicará la misma edición impresa en otros servicios o con un sello editorial propio.
-
-No colocar un ISBN inventado dentro del manuscrito ni en la cubierta.
+En el panel de KDP, introducir `9798190186116` como ISBN de la tapa blanda y confirmar que los datos registrados coinciden exactamente con el título, subtítulo y autoría de esta edición. La cubierta deja libre la zona del código de barras para que KDP lo coloque.
 
 ## Declaración de inteligencia artificial en KDP
 
@@ -124,8 +121,8 @@ Antes de publicar, Indira y Antonio deben revisar y aprobar el texto final, espe
 1. Revisar el PDF página por página.
 2. Confirmar que título, subtítulo y autores coinciden exactamente en interior, cubierta y panel KDP.
 3. Validar el EPUB en Kindle Previewer.
-4. Añadir ISBN solo cuando esté asignado.
-5. Comprobar la cubierta provisional con la plantilla de KDP para 90 páginas o regenerarla con el recuento final posterior.
+4. Confirmar el ISBN `9798190186116` en el panel KDP.
+5. Comprobar la cubierta provisional con la plantilla de KDP para 100 páginas.
 6. Subir interior y cubierta al Previsualizador de impresión de KDP.
 7. Comprobar medianil, fuentes, páginas en blanco y código de barras.
 8. Pedir una copia de prueba antes de activar la venta.

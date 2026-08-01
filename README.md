@@ -1,6 +1,6 @@
-# Guía de reconstrucción psicológica
+# Guía de reconstrucción psicológica de una catástrofe
 
-**Cuando todo se derrumba por dentro y por fuera**
+**Venezuela**
 
 Versión impresa y online de una guía de primeros auxilios psicológicos ampliados para personas, familias y comunidades afectadas por catástrofes en Venezuela.
 

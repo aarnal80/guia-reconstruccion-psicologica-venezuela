@@ -29,7 +29,7 @@ test("renders the manual home in Spanish", async () => {
   assert.equal(response.status, 200);
   const html = await response.text();
   assert.match(html, /lang="es"/);
-  assert.match(html, /Guía de reconstrucción psicológica/);
+  assert.match(html, /Guía de reconstrucción psicológica de una catástrofe/);
   assert.match(html, /Volver a respirar/);
   assert.match(html, /Buscar en la guía/);
   assert.match(html, /Ayuda práctica y verificada/);
@@ -48,6 +48,8 @@ test("ships the complete manual and offline shell", async () => {
   assert.match(manualData, /"title": "Guía 7"/);
   assert.match(manualData, /"title": "Sobre los autores"/);
   assert.doesNotMatch(manualData, /"title": "Referencias"/);
+  assert.equal((manualData.match(/notes-page/g) ?? []).length, 8);
+  assert.match(manualData, /worksheet/);
   assert.ok(manualData.length > 150_000);
   assert.equal(JSON.parse(manifest).lang, "es-VE");
   assert.match(serviceWorker, /CACHE_NAME/);

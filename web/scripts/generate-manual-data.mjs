@@ -91,13 +91,29 @@ for (let index = 0; index < lines.length; index += 1) {
     continue;
   }
 
+  if (trimmed === "[[NOTES_PAGE]]") {
+    flushParagraph();
+    const noteLines = Array.from(
+      { length: 15 },
+      () => '<div class="note-line" aria-hidden="true"></div>',
+    ).join("");
+    chapter.html.push(
+      `<section class="notes-page" aria-label="Página para notas"><h2>Mis notas</h2>${noteLines}</section>`,
+    );
+    chapter.text.push("Mis notas");
+    continue;
+  }
+
   const heading = trimmed.match(/^(#{1,3})\s+(.+)$/);
   if (heading) {
     flushParagraph();
     const level = heading[1].length;
     const title = heading[2].trim();
 
-    if (level === 1 && title === "GUÍA DE RECONSTRUCCIÓN PSICOLÓGICA") {
+    if (
+      level === 1 &&
+      title === "GUÍA DE RECONSTRUCCIÓN PSICOLÓGICA DE UNA CATÁSTROFE"
+    ) {
       continue;
     }
 
@@ -182,6 +198,14 @@ for (let index = 0; index < lines.length; index += 1) {
     continue;
   }
 
+  const isWorksheetLine = lines[index].endsWith("  ") || /_{3,}/.test(trimmed);
+  if (isWorksheetLine) {
+    flushParagraph();
+    chapter.html.push(`<p class="worksheet">${inline(trimmed)}</p>`);
+    chapter.text.push(trimmed.replace(/\*\*/g, ""));
+    continue;
+  }
+
   paragraph.push(trimmed);
 }
 
@@ -204,7 +228,7 @@ export type ManualChapter = {
   searchText: string;
 };
 
-export const manualUpdated = "29 de julio de 2026";
+export const manualUpdated = "1 de agosto de 2026";
 export const manualChapters: ManualChapter[] = ${JSON.stringify(chapters, null, 2)};
 `;
 

@@ -461,10 +461,12 @@ export function ManualApp() {
 
   const shareCurrent = async () => {
     const data = {
-      title: currentChapter?.title ?? "Guía de reconstrucción psicológica",
+      title:
+        currentChapter?.title ??
+        "Guía de reconstrucción psicológica de una catástrofe",
       text:
         currentChapter?.subtitle ??
-        "Cuando todo se derrumba por dentro y por fuera.",
+        "Venezuela.",
       url: location.href,
     };
     if (navigator.share) await navigator.share(data).catch(() => undefined);
@@ -787,7 +789,7 @@ export function ManualApp() {
               <div className="cover-glow" />
               <img
                 src="./portada-guia.jpg"
-                alt="Portada de la Guía de reconstrucción psicológica"
+                alt="Portada de la Guía de reconstrucción psicológica de una catástrofe"
               />
               <div className="cover-note">
                 <span>Edición 2026</span>
@@ -996,8 +998,8 @@ export function ManualApp() {
 
           <footer>
             <div>
-              <strong>Guía de reconstrucción psicológica</strong>
-              <p>Cuando todo se derrumba por dentro y por fuera.</p>
+              <strong>Guía de reconstrucción psicológica de una catástrofe</strong>
+              <p>Venezuela.</p>
             </div>
             <div className="footer-links">
               <button onClick={() => navigate("antes-de-empezar")}>
@@ -1010,7 +1012,7 @@ export function ManualApp() {
             </div>
             <small>
               © 2026 Indira Lucía Parra y Antonio José Arnal Meinhardt ·
-              Información revisada el {manualUpdated}.
+              ISBN 9798190186116 · Información revisada el {manualUpdated}.
             </small>
           </footer>
         </main>

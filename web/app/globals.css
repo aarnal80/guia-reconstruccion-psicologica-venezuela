@@ -1200,6 +1200,32 @@ footer small {
   hyphens: auto;
 }
 
+.article-content p.worksheet {
+  text-align: left;
+  hyphens: none;
+  overflow-wrap: anywhere;
+}
+
+.article-content .notes-page {
+  min-height: 70vh;
+  margin: 2em 0;
+  padding: 1.2em;
+  background: color-mix(in srgb, var(--paper) 92%, var(--teal-light));
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+
+.article-content .notes-page h2 {
+  display: block;
+  margin-top: 0;
+  text-align: left;
+}
+
+.article-content .note-line {
+  height: 2.25em;
+  border-bottom: 1px solid var(--line);
+}
+
 .article-content ul,
 .article-content ol {
   margin: 0.2em 0 1.3em;

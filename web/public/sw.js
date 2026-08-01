@@ -1,4 +1,4 @@
-const CACHE_NAME = "guia-reconstruccion-v3";
+const CACHE_NAME = "guia-reconstruccion-v4";
 
 const localUrl = (path = "") => new URL(path, self.registration.scope).href;
 const CORE_ASSETS = [
