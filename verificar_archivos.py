@@ -14,8 +14,8 @@ docx_path = ROOT / f"{STEM}.docx"
 epub_path = ROOT / f"{STEM}.epub"
 html_path = ROOT / f"{STEM}_web.html"
 md_path = ROOT / "manuscrito_guia.md"
-front_cover_path = ROOT / "Portada_provisional_frontal_6x9.pdf"
-wrap_cover_path = ROOT / "Portada_provisional_KDP_crema.pdf"
+front_cover_path = ROOT / "Portada_frontal_6x9.pdf"
+wrap_cover_path = ROOT / "Portada_KDP_crema.pdf"
 public_pdf_path = ROOT / "web" / "public" / "guia-reconstruccion-psicologica.pdf"
 title = "Guía de reconstrucción psicológica de una catástrofe"
 isbn = "9798190186116"
@@ -115,11 +115,13 @@ front_cover = PdfReader(front_cover_path)
 assert len(front_cover.pages) == 1
 assert round(float(front_cover.pages[0].mediabox.width), 1) == 432.0
 assert round(float(front_cover.pages[0].mediabox.height), 1) == 648.0
+assert "PROVISIONAL" not in (front_cover.pages[0].extract_text() or "").upper()
 
 wrap_cover = PdfReader(wrap_cover_path)
 assert len(wrap_cover.pages) == 1
 assert round(float(wrap_cover.pages[0].mediabox.width), 1) == 900.0
 assert round(float(wrap_cover.pages[0].mediabox.height), 1) == 666.0
+assert "PROVISIONAL" not in (wrap_cover.pages[0].extract_text() or "").upper()
 
 assert public_pdf_path.exists()
 assert hashlib.sha256(pdf_path.read_bytes()).digest() == hashlib.sha256(public_pdf_path.read_bytes()).digest()

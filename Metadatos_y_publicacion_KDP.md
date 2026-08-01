@@ -72,13 +72,13 @@ No clasificar como libro infantil ni como libro de poco contenido.
 - Márgenes interiores y exteriores: 0,82 pulgadas
 - Fuente interior incrustada: Georgia
 - Texto de lomo: permitido por superar 79 páginas
-- Cubierta provisional completa: `Portada_provisional_KDP_crema.pdf`
-- Portada frontal provisional: `Portada_provisional_frontal_6x9.pdf`
-- Portada frontal en JPG: `Portada_provisional_frontal_6x9.jpg`
+- Cubierta completa: `Portada_KDP_crema.pdf`
+- Portada frontal: `Portada_frontal_6x9.pdf`
+- Portada frontal en JPG: `Portada_frontal_6x9.jpg`
 - Arte final luminoso de cubierta: `arte_portada_venezuela_luto_luminosa.png`
 - Primera versión nocturna conservada: `arte_portada_venezuela_luto.png`
 
-La cubierta provisional completa está calculada para papel crema y 100 páginas: lomo de 6,35 mm (0,250 pulgadas), formato final de 12,500 × 9,25 pulgadas con sangrado. El arte representa a Venezuela, el luto y la reconstrucción mediante papel rasgado, un lazo negro, una costura dorada y flores amarillas. El generador recalcula el lomo desde el PDF interior; aun así, debe comprobarse con la plantilla oficial de KDP antes de publicar.
+La cubierta completa está calculada para papel crema y 100 páginas: lomo de 6,35 mm (0,250 pulgadas), formato final de 12,500 × 9,25 pulgadas con sangrado. El arte representa a Venezuela, el luto y la reconstrucción mediante papel rasgado, un lazo negro, una costura dorada y flores amarillas. El generador recalcula el lomo desde el PDF interior; aun así, debe comprobarse con la plantilla oficial de KDP antes de publicar.
 
 ## eBook y distribución gratuita
 
@@ -112,7 +112,6 @@ Antes de publicar, Indira y Antonio deben revisar y aprobar el texto final, espe
 
 ## Archivos que todavía dependen de una decisión final
 
-- Cubierta definitiva: la actual es provisional y deberá sustituirse por la versión ilustrada o regenerarse si cambia el recuento.
 - Anexo de recursos venezolanos: requiere directorio local fechado y verificado de servicios realmente operativos.
 - Ilustraciones de Daniel Bastidas: se incorporarán en una edición posterior y cambiarán el recuento de páginas y el ancho del lomo.
 
@@ -122,7 +121,7 @@ Antes de publicar, Indira y Antonio deben revisar y aprobar el texto final, espe
 2. Confirmar que título, subtítulo y autores coinciden exactamente en interior, cubierta y panel KDP.
 3. Validar el EPUB en Kindle Previewer.
 4. Confirmar el ISBN `9798190186116` en el panel KDP.
-5. Comprobar la cubierta provisional con la plantilla de KDP para 100 páginas.
+5. Comprobar la cubierta final con la plantilla de KDP para 100 páginas.
 6. Subir interior y cubierta al Previsualizador de impresión de KDP.
 7. Comprobar medianil, fuentes, páginas en blanco y código de barras.
 8. Pedir una copia de prueba antes de activar la venta.

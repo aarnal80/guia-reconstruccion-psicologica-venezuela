@@ -48,8 +48,8 @@ DOCX_PATH = ROOT / f"{STEM}.docx"
 PDF_PATH = ROOT / f"{STEM}_KDP_6x9.pdf"
 HTML_PATH = ROOT / f"{STEM}_web.html"
 EPUB_PATH = ROOT / f"{STEM}.epub"
-FRONT_COVER_PDF = ROOT / "Portada_provisional_frontal_6x9.pdf"
-WRAP_COVER_PDF = ROOT / "Portada_provisional_KDP_crema.pdf"
+FRONT_COVER_PDF = ROOT / "Portada_frontal_6x9.pdf"
+WRAP_COVER_PDF = ROOT / "Portada_KDP_crema.pdf"
 COVER_ART = ROOT / "arte_portada_venezuela_luto_luminosa.png"
 
 TITLE = "Guía de reconstrucción psicológica de una catástrofe"
@@ -1116,7 +1116,7 @@ def draw_front_panel(canvas, x, y, width, height):
     canvas.drawString(title_x, y + 0.69 * inch, "ANTONIO JOSÉ ARNAL MEINHARDT")
     canvas.setFont("Georgia", 6.8)
     canvas.setFillColor(teal)
-    canvas.drawRightString(x + width - margin, y + 0.43 * inch, "EDICIÓN PROVISIONAL · 2026")
+    canvas.drawRightString(x + width - margin, y + 0.43 * inch, "PRIMERA EDICIÓN · 2026")
 
 
 def build_covers():
@@ -1127,7 +1127,7 @@ def build_covers():
         pagesize=(6 * inch, 9 * inch),
         pageCompression=1,
     )
-    front.setTitle(f"Portada provisional — {TITLE}")
+    front.setTitle(f"Portada — {TITLE}")
     front.setAuthor(AUTHORS)
     draw_front_panel(front, 0, 0, 6 * inch, 9 * inch)
     front.showPage()
@@ -1143,7 +1143,7 @@ def build_covers():
     wrap_w = 2 * bleed + 2 * trim_w + spine_w
     wrap_h = 2 * bleed + trim_h
     cover = pdfcanvas.Canvas(str(WRAP_COVER_PDF), pagesize=(wrap_w, wrap_h), pageCompression=1)
-    cover.setTitle(f"Cubierta provisional KDP — {TITLE}")
+    cover.setTitle(f"Cubierta KDP — {TITLE}")
     cover.setAuthor(AUTHORS)
     cover.setFillColor(HexColor("#D8EAF0"))
     cover.rect(0, 0, wrap_w, wrap_h, stroke=0, fill=1)
@@ -1231,7 +1231,7 @@ def build_covers():
     cover.drawCentredString(barcode_x + inch, barcode_y + 0.56 * inch, "ZONA DE CÓDIGO DE BARRAS")
     cover.setFillColor(HexColor("#56A3A3"))
     cover.setFont("Georgia", 6.5)
-    cover.drawString(back_x + 0.58 * inch, panel_y + 0.48 * inch, "PORTADA PROVISIONAL")
+    cover.drawString(back_x + 0.58 * inch, panel_y + 0.48 * inch, "PRIMERA EDICIÓN · 2026")
 
     cover.setFillColor(HexColor("#4E8E9D"))
     cover.rect(spine_x, panel_y, spine_w, trim_h, stroke=0, fill=1)
